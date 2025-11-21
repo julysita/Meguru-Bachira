@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blue Lock Extravagante</title>
+
+<style>
+/* RESET */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Arial', sans-serif;
+}
+
+/* COLORES */
+:root{
+  --dorado-neon: #ffd700;
+  --negro-neon: #0a0a0a;
+  --dorado-glow: 0 0 10px #ffd700, 0 0 20px #ffea00, 0 0 40px #fff5b0;
+}
+
+/* LOADER */
+#loader{
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:var(--negro-neon);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+  flex-direction:column;
+}
+
+.barra{
+  width:80%;
+  height:15px;
+  border:2px solid var(--dorado-neon);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow: var(--dorado-glow);
+}
+
+.barra-inner{
+  width:0%;
+  height:100%;
+  background:var(--dorado-neon);
+  box-shadow: var(--dorado-glow);
+  transition:width 0.3s linear;
+}
+
+#porcentaje{
+  margin-top:15px;
+  color:var(--dorado-neon);
+  font-size:20px;
+  letter-spacing:3px;
+  text-shadow: var(--dorado-glow);
+}
+
+
+/* VIDEO DE FONDO */
+#video-bg{
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-2;
+  filter:brightness(0.35) contrast(1.2);
+}
+
+.overlay{
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(212,175,55,0.18);
+  z-index:-1;
+}
+
+/* CONTENIDO PRINCIPAL */
+.contenido{
+  width:100%;
+  padding:40px 10px;
+  color:white;
+  text-align:center;
+}
+
+
+/* ----------------------------------------------------
+     🔥 FICHA DE BACHIRA — ESTILO C (DEMONIO DEL DRIBBLE)
+-----------------------------------------------------*/
+.ficha{
+  margin:40px auto;
+  max-width:750px;
+  padding:35px 28px;
+
+  /* Fondo interno demoníaco */
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      #000000aa 0px,
+      #000000aa 8px,
+      #0d0d0d 8px,
+      #0d0d0d 16px
+    );
+
+  /* Bordes rotos estilo demonio */
+  border:4px dashed var(--dorado-neon);
+  border-radius:22px;
+
+  /* Sombra demonio */
+  box-shadow:
+    0 0 18px #ffd700,
+    0 0 35px #ffcc00,
+    0 0 60px #ffea00;
+
+  position:relative;
+  overflow:hidden;
+  animation:pulsoDemonio 2.2s infinite ease-in-out;
+}
+
+/* Electricidad dorada animada */
+.ficha::before{
+  content:"";
+  position:absolute;
+  top:0; left:-100%;
+  width:300%;
+  height:100%;
+  background:linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255,215,0,0.25) 50%,
+    transparent 100%
+  );
+  animation:rayos 3s infinite linear;
+  pointer-events:none;
+}
+
+/* Vibración demoníaca */
+@keyframes pulsoDemonio{
+  0%{ box-shadow:0 0 25px #ffd700; }
+  50%{ box-shadow:0 0 45px #ffea00; }
+  100%{ box-shadow:0 0 25px #ffd700; }
+}
+
+@keyframes rayos{
+  0%{ transform:translateX(-50%); }
+  100%{ transform:translateX(50%); }
+}
+
+/* TEXTO INTERNO */
+.ficha pre{
+  text-align:left;
+  white-space:pre-line;
+  color:var(--dorado-neon);
+  font-size:20px;
+  line-height:1.45;
+  padding:0 10px;
+  text-shadow: 0 0 15px #ffd700;
+}
+
+
+/* MARCO */
+.marco{
+  width:250px;
+  height:250px;
+  margin:30px auto 10px auto;
+  border:4px solid var(--dorado-neon);
+  border-radius:18px;
+  box-shadow:0 0 25px var(--dorado-neon);
+  overflow:hidden;
+}
+
+.marco img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+
+/* COLUMNAS */
+.columnas{
+  margin-top:40px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:35px;
+  justify-content:center;
+}
+
+.col{
+  width:320px;
+  padding:20px;
+  background:rgba(0,0,0,0.7);
+  border:3px solid var(--dorado-neon);
+  border-radius:15px;
+  box-shadow:0 0 20px var(--dorado-neon);
+  text-align:center;
+}
+
+.col img{
+  width:100%;
+  border-radius:10px;
+  margin-bottom:10px;
+  border:3px solid var(--dorado-neon);
+}
+
+.col h2{
+  color:var(--dorado-neon);
+  margin-bottom:10px;
+}
+
+.col p{
+  color:white;
+  white-space:pre-line;
+}
+
+
+/* BOTÓN AUDIO */
+#btn-audio{
+  margin-top:25px;
+  padding:12px 25px;
+  border:2px solid var(--dorado-neon);
+  color:var(--dorado-neon);
+  background:black;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:18px;
+  transition:0.3s;
+}
+
+#btn-audio:hover{
+  background:var(--dorado-neon);
+  color:black;
+}
+
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .marco{
+    width:200px;
+    height:200px;
+  }
+  .col{
+    width:90%;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- VIDEO DE FONDO -->
+<video id="video-bg" autoplay muted loop>
+  <source src="video.mp4" type="video/mp4">
+</video>
+<div class="overlay"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="barra"><div class="barra-inner" id="barra"></div></div>
+  <div id="porcentaje">0%</div>
+</div>
+
+<!-- CONTENIDO -->
+<div class="contenido" id="contenido" style="display:none;">
+
+  <h1 style="color:var(--dorado-neon); font-size:40px; text-shadow:0 0 15px var(--dorado-neon);">
+    BLUE LOCK PROJECT
+  </h1>
+
+  <!-- MARCO -->
+  <div class="marco">
+    <img src="jona.jpg">
+  </div>
+
+  <!-- FICHA (NUEVO ESTILO C) -->
+  <div class="ficha">
+<pre>
+𝄖 ｡   #𝘽𝙇𝙐𝙀 𝙇𝙊𝘾𝙆 𝙋𝙍𝙊𝙅𝙀𝘾𝙏
+
+⟢ Nombre: *Meguru Bachira*
+⟢ Edad: *18*
+
+────────────────────────
+  ⟬ 𝟑𝟐𝟓 pts — Máximo 150 por stat ⟭
+      ⟬ Puntos extra: 00 ⟭
+────────────────────────
+
+• Pase: 96
+• Tiro: 93
+• Físico: 43
+• Regate: 118
+• Defensa: 58
+• Velocidad: 80
+</pre>
+  </div>
+
+  <!-- COLUMNAS -->
+  <div class="columnas">
+
+    <div class="col">
+      <img src="reo.jpg">
+      <h2>Reo Mikage U20</h2>
+      <p>Edición de Blue Lock Eleven vs Sub 20 de Japón
+
+Estilo y Adaptación del Camaleón de Reo Mikage
+
+Legendario
+
+(Pasiva de Estilo – Pase)
+
+Eres un jugador nacido para adaptarse al entorno que te rodea. Tu talento radica en la versatilidad absoluta, capaz de ocupar cualquier zona del campo con total soltura, analizando cada jugada con tu conciencia espacial y traduciéndose en decisiones efectivas que elevan la fluidez del equipo. No importa si es defensa, centrocampista o delantero, todo se te da bien. Gracias a tu visión de campo avanzada y lectura del juego, tus estadísticas base se ven potenciadas por una conciencia espacial otorgando un aumento pasivo de +5 puntos en todas tus estadísticas. Tu control del juego te permite distribuir y desequilibrar con precisión, por lo que Pase y Regate se ven aumentados en +11 puntos inicialmente. Tiro, Defensa, Físico y Velocidad se ven aumentados en +8 puntos. Como efecto acumulable, cada vez que venzas en un duelo (con o sin ruleta), Pase y Regate aumentan en +6 puntos hasta 3 veces. Además, reduces -13 puntos en defensa enemiga en encuentros de Pase vs Defensa y Regate vs Defensa una vez ganes la acumulable máximo. Tus pases pueden tomar curvatura libre sin alterar su precisión, y al ejecutar pases a larga distancia, solo sufres un 35% de reducción por distancia, a diferencia del 50% convencional. Tienes la habilidad de copiar cualquier jugada de otro jugador dentro del campo (ya sea una jugada de Genio, de alto rendimiento o estilo único) y reproducirla perfectamente, ganando +5 puntos en la estadística central que la jugada representa (ya sea Pase, Tiro, Defensa, Regate, Físico o Velocidad). Este aumento permanece indefinidamente, pero no puedes volver a replicar una jugada para seguir acumulando la misma estadística. Sin embargo, puedes repetir el proceso en otra categoría distinta. No puedes copiar pasivas ni jugadas exclusivas de jugadores del New Gen Eleven; si copias una de Velocidad o Físico arriesgas lesión con una ruleta. Puedes adaptarte al estilo ofensivo o técnico de jugadores como Shidou, Nagi, Yukimiya u Oliver Aiku.
+
+Camaleón
+
+Con esta habilidad puedes copiar y utilizar una pasiva activa dentro del campo (ya sea de un aliado o enemigo), manteniéndola solo durante la jugada. Puedes copiar todo tipo de pasivas. Si una pasiva contiene características de Físico o Velocidad con riesgo de lesión, la ruleta se ajusta automáticamente a 40% de no lesión y 60% de lesión.
+
+Ejecución:
+
+Debes indicar qué pasiva copias, mencionarlo como Camaleón y aplicarlo en la jugada. No tiene cooldown: respeta el cooldown de la pasiva copiada.
+
+Gyro Shot – Estilo del Camaleón
+
+Un disparo con efecto que cambia de trayectoria y aparenta irse fuera, pero desciende repentinamente entrando en el arco. Reduce -8 la estadística del portero. Si alguien interviene, es forzado a Tiro vs Defensa con -20% en su estadística.
+
+Ejecución:
+
+Debes mencionar Gyro Shot – Estilo del Camaleón y esperar 7 turnos globales de cooldown.
+
+Control Absorbente x Despeje Giratorio – Estilo del Camaleón
+
+Convierte rechaces, pases imperfectos o posiciones incómodas en oportunidades mediante un giro técnico que transforma la acción en control o pase preciso. Aumenta +6 Pase al usarla, acumulable 2 veces. El pase puede tomar efecto curvado o flotante desde 15 m. Si tu equipo recupera el balón, ganan +5 en Tiro, Pase y Regate en esa jugada. Los defensores que intenten interceptar se ven forzados a un duelo con -20% en Defensa vs Pase.
+
+Ejecución:
+
+Debes narrar cómo controlás el balón desde un ángulo incómodo y usar la técnica. Menciona el uso. Cooldown de 7 turnos globales.
+
+Defensa Asfixiante – Estilo Camaleón
+
+Ejecutas un marcaje que cierra espacios y asfixia al atacante sin necesidad de contacto directo. Obligas a Regate vs Defensa, Tiro vs Defensa o Defensa vs Pase según corresponda. Obtienes +12 en Defensa y +10 en Físico mientras mantienes la marca. Si el rival falla su acción, recibe -20 en la estadística usada. Si pierde la ruleta, obtienes +6 en Pase o Regate (a elección) en tu siguiente jugada ofensiva.
+
+Ejecución:
+
+Debes narrar el marcaje pegado, constante, cerrando líneas y mencionar Defensa Asfixiante – Estilo Camaleón. Cooldown de 7 turnos.
+
+Movimiento de flujo
+
+Dragon Drive Shot – Estilo del Camaleón
+
+Un disparo salvaje y explosivo que replica la brutalidad ofensiva de una bestia. Aumenta +10 Tiro al activarlo. Fuerza a duelo Tiro vs Defensa y reduce la Defensa del rival en -25%.
+
+Ejecución:
+
+Debes usarlo en un balón rechazado o aéreo y mencionar Tiro Dragón – Estilo del Camaleón. Cooldown de 8 turnos.</p>
+    </div>
+
+    <div class="col">
+      <img src="bachira.jpg">
+      <h2>Meguru Bachira</h2>
+      <p>Estilo del Monstruo Interior de Meguru Bachira
+
+Mítico
+
+(Pasiva de Regate y Pase)
+
+Cuando el balón se une a tu instinto, tus movimientos son impredecibles y no pueden ser copiados ni leídos. Desde el inicio obtienes +5 en todas tus estadísticas, +12 en Velocidad, +17 en Regate y +15 en Pase. Cada vez que superas rivales con o sin ruleta, obtienes +4 Regate acumulable 6 veces. Al completar la cuota, reduces -16% la Defensa rival y tu regate y pase no pueden ser reducidos. Cada pase exitoso aumenta Pase +6 acumulable 3 veces; completada la cuota, reduces -14% la Velocidad del rival que intenta interceptar. Si superas una defensa con regate antes de tirar, obtienes +10 en Tiro y +5 adicionales por ese post.
+
+Trance del Monstruo
+
+Permite combinar regates técnicos con movimientos impredecibles. Obliga duelos de Regate vs Defensa con -35 en Defensa rival. Si ganas 1v1 obtienes +8 Regate; si ganas 1v2 obtienes +16; si ganas 1v3 obtienes +24 en la misma jugada.
+
+Ejecución:
+
+Debes narrar el regate e indicar Trance del Monstruo Interior mencionando si es 1v1, 1v2 o 1v3. Cooldown 7 turnos.
+
+No la pienso pasar si no superas mi imaginación
+
+Solo das pases si el compañero demuestra una jugada que supera tu creatividad. Si lo hace, recibís +10 en esa jugada. Los rivales que intenten cortar el pase reducen -14% Defensa y Velocidad si fallan, de manera permanente.
+
+Ejecución:
+
+Debes narrar cómo el compañero supera tu imaginación y mencionar No la pienso pasar si no superas mi imaginación. Cooldown 6 turnos.
+
+Elevación Monstruosa
+
+Un movimiento impredecible donde simulas un disparo y luego impactás el balón hacia abajo con efecto liftado para hacerlo botar por encima del defensor.
+
+Ejecución:
+
+Debes mencionar Elevación Monstruosa. Cooldown de 8 turnos.</p>
+    </div>
+
+  </div>
+
+  <!-- AUDIO -->
+  <audio id="audio" src="musica.mp3"></audio>
+  <button id="btn-audio">Reproducir</button>
+
+</div>
+
+<script>
+/* LOADER */
+let barra = document.getElementById("barra");
+let porcentaje = document.getElementById("porcentaje");
+let loader = document.getElementById("loader");
+let contenido = document.getElementById("contenido");
+
+let i = 0;
+let intervalo = setInterval(() => {
+  if(i >= 100){
+    clearInterval(intervalo);
+    loader.style.display = "none";
+    contenido.style.display = "block";
+  }
+  barra.style.width = i + "%";
+  porcentaje.innerText = i + "%";
+  i++;
+}, 20);
+
+/* AUDIO */
+const audio = document.getElementById("audio");
+const btnAudio = document.getElementById("btn-audio");
+let reproduciendo = false;
+
+btnAudio.addEventListener("click", () => {
+  if(!reproduciendo){
+    audio.play();
+    btnAudio.innerText = "Pausar";
+    reproduciendo = true;
+  } else {
+    audio.pause();
+    btnAudio.innerText = "Reproducir";
+    reproduciendo = false;
+  }
+});
+</script>
+
+</body>
+</html>
